@@ -24,3 +24,23 @@ const images = [
     alt: "Lighthouse Coast Sea",
   },
 ];
+
+const container = document.querySelector(".gallery");
+function createGallery(arr) {
+  return arr
+    .map(
+      (item) => `
+  <li class="img-card">
+  <img src="${item.url}" alt="${item.alt}" class="img-url">
+  <h2 class="img-title">${item.alt}</h2>
+  </li>
+  `
+    )
+    .join("");
+}
+
+container.style.display = "flex";
+container.style.flexWrap = "wrap";
+container.style.gap = "24px";
+
+container.insertAdjacentHTML("beforeend", createGallery(images));
