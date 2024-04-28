@@ -10,6 +10,8 @@ const boxContainer = document.querySelector("#boxes");
 const btnDestroy = document.querySelector("[data-destroy]");
 let boxesContainer = document.querySelector("#boxes");
 
+const fragment = document.createDocumentFragment();
+
 btn.addEventListener("click", () => {
   const amount = parseInt(input.value);
 
@@ -24,14 +26,18 @@ btn.addEventListener("click", () => {
 function createBoxes(amount) {
   const initialSize = 30;
 
+  boxesContainer.innerHTML = "";
+
   for (let i = 0; i < amount; i++) {
     const div = document.createElement("div");
     div.style.width = `${initialSize + i * 10}px`;
     div.style.height = `${initialSize + i * 10}px`;
     div.style.backgroundColor = getRandomHexColor();
-    boxesContainer.appendChild(div);
+    fragment.appendChild(div);
     div.classList.add("box");
   }
+
+  boxesContainer.appendChild(fragment);
 }
 
 btnDestroy.addEventListener("click", () => {
