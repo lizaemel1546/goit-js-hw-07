@@ -5,43 +5,39 @@ function getRandomHexColor() {
 }
 
 const input = document.querySelector("input");
-const btn = document.querySelector("[data-create]");
-const boxContainer = document.querySelector("#boxes");
-const btnDestroy = document.querySelector("[data-destroy]");
-let boxesContainer = document.querySelector("#boxes");
+const create = document.querySelector("button[data-create]");
 
-const resArr = [];
-btn.addEventListener("click", () => {
-  const amount = parseInt(input.value);
+const destroy = document.querySelector("button[data-destroy]");
+const box = document.querySelector("#boxes");
 
-  if (amount < 1 || amount > 100) {
-    return;
-  } else {
-    createBoxes(amount);
-    input.value = "";
-  }
-  resArr.push(amount);
+create.addEventListener("click", createMarkup);
+destroy.addEventListener("click", () => {
+  box.innerHTML = "";
+  sizes = 30;
 });
 
-function createBoxes(amount) {
-  const initialSize = 30;
-  const fragment = document.createDocumentFragment();
+let sizes = 30;
 
-  for (let i = 0; i < amount; i++) {
-    const div = document.createElement("div");
-    div.style.width = `${initialSize + i * 10}px`;
-    div.style.height = `${initialSize + i * 10}px`;
-    div.style.backgroundColor = getRandomHexColor();
-
-    div.classList.add("box");
-    resArr.push(div);
+function createMarkup() {
+  if (input.value < 1 || input.value > 100) {
+    console.log("error");
+    return;
   }
-
-  boxesContainer.innerHTML = "";
-
-  resArr.forEach((box) => boxesContainer.appendChild(box));
+  createBoxes(input.value);
 }
 
-btnDestroy.addEventListener("click", () => {
-  boxesContainer.innerHTML = "";
-});
+function createBoxes(amount) {
+  input.value = "";
+  box.innerHTML = "";
+  sizes = 30;
+  const arr = [];
+  for (let i = 0; i < amount; i++) {
+    const myBox = document.createElement("div");
+    myBox.style.width = `${sizes}px`;
+    myBox.style.height = `${sizes}px`;
+    myBox.style.backgroundColor = getRandomHexColor();
+    arr.push(myBox);
+    sizes += 10;
+  }
+  box.append(...arr);
+}
